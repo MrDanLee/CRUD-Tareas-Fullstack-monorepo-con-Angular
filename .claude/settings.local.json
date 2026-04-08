@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx nest:*)",
+      "Bash(npm install:*)",
+      "Bash(curl -s -X POST http://localhost:3000/tasks -H \"Content-Type: application/json\" -d '{\"title\":\"Aprender NestJS\",\"description\":\"Completar el CRUD del Día 2\"}')",
+      "Bash(python -m json.tool)",
+      "Bash(curl -s -X POST http://localhost:3000/tasks -H \"Content-Type: application/json\" -d '{\"title\":\"Aprender NestJS\",\"description\":\"Completar el CRUD del Día 2\"}' echo \"\" echo \"=== LISTAR TAREAS ===\" curl -s http://localhost:3000/tasks)",
+      "Bash(curl -s http://localhost:3000/tasks echo \"\")",
+      "Bash(node -e \"const ct = require\\('class-transformer'\\); const cv = require\\('class-validator'\\); console.log\\('class-transformer OK'\\); console.log\\('class-validator OK'\\);\")",
+      "Bash(curl -s -X POST http://localhost:3000/tasks -H \"Content-Type: application/json\" -d '{}')",
+      "Bash(kill %1)",
+      "Bash(curl -s -X POST http://localhost:3000/tasks -H \"Content-Type: application/json\" -d '{\"title\":\"Test\",\"description\":\"desc\",\"hack\":\"malicioso\"}')",
+      "Bash(python -m json.tool kill %1)"
+    ]
+  }
+}
