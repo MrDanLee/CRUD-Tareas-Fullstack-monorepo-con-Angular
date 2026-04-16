@@ -1,0 +1,158 @@
+.task-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  color: #f1f5f9;
+}
+
+.header button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.header button:hover {
+  background: #334155;
+  color: #f1f5f9;
+}
+
+.create-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.create-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.create-form input:focus {
+  border-color: #38bdf8;
+}
+
+.create-form button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.create-form button:hover {
+  background: #1d4ed8;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #1e293b;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  transition: border-color 0.2s;
+}
+
+.task-card:hover {
+  border-color: #475569;
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-info strong {
+  display: block;
+  font-size: 1rem;
+  color: #f1f5f9;
+  margin-bottom: 4px;
+}
+
+.task-info p {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: #1e3a5f;
+  color: #38bdf8;
+}
+
+.task-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+}
+
+.task-actions select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.task-actions select:focus {
+  border-color: #38bdf8;
+}
+
+.task-actions button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #ef4444;
+  background: transparent;
+  color: #ef4444;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.task-actions button:hover {
+  background: #ef4444;
+  color: white;
+}
