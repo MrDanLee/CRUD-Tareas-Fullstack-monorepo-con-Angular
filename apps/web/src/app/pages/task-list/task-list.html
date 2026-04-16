@@ -1,0 +1,31 @@
+<div class="task-container" >
+  <div class="header">
+    <h2>Mis tareas</h2>
+    <button (click)="logout()">Cerrar sesión</button>
+  </div>
+
+  <form (ngSubmit)="create()" class="create-form">
+    <input [(ngModel)]="newTitle" name="title" placeholder="Título" required />
+    <input [(ngModel)]="newDescription" name="description" placeholder="Descripción" required />
+    <button type="submit" >Crear</button>
+  </form>
+
+  <div class="task-list" >
+    <div *ngFor="let task of tasks" class="task-card" >
+      <div class="task-info" >
+        <strong>{{ task.title }}</strong>
+        <p>{{ task.description }}</p>
+        <span class="status" >{{ task.status }}</span>
+      </div>
+      <div class="task-actions" >
+        <select #statusSelect (change)="updateStatus(task.id, statusSelect.value)">
+          <option value="OPEN" [selected]="task.status === 'OPEN'" >OPEN</option>
+          <option value="IN_PROGRESS" [selected]="task.status === 'IN_PROGRESS'" >IN_PROGRESS</option>
+          <option value="DONE" [selected]="task.status === 'DONE'">DONE</option>
+        </select>
+        <button (click)="remove(task.id)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
