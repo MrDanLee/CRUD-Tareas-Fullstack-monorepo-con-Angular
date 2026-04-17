@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +15,11 @@ export class TaskList implements OnInit {
   newTitle = '';
   newDescription = '';
 
-  constructor(private taskService: TaskService, private router: Router) {}
+  constructor(
+    private taskService: TaskService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit() {
     this.loadTasks()
@@ -23,7 +27,10 @@ export class TaskList implements OnInit {
 
   loadTasks() {
     this.taskService.findAll().subscribe({
-      next: (tasks) => this.tasks = tasks,
+      next: (tasks) => {
+        this.tasks = tasks;
+        this.cdr.detectChanges();
+      },
       error: () => this.router.navigate(['/login']),
     });
   }
@@ -37,7 +44,9 @@ export class TaskList implements OnInit {
   }
 
   updateStatus(id: string, status: string) {
-    this.taskService.update(id, status).subscribe(() => this.loadTasks());
+    const task = this.tasks.find(t => t.id === id);
+    if (task) task.status = status;
+    this.taskService.update(id, status).subscribe();
   }
  
   remove(id: string) {
