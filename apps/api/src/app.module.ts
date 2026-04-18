@@ -7,9 +7,9 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [TasksModule, AuthModule, TypeOrmModule.forRoot({
-    type: 'mysql',
+    type: 'postgres',
     host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || '3306'),
+    port: parseInt(process.env.DB_PORT || '5432'),
     username: process.env.DB_USERNAME || 'root',
     password: process.env.DB_PASSWORD || 'root',
     database: process.env.DB_DATABASE || 'task_board',
