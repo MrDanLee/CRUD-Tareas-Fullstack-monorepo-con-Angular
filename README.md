@@ -1,98 +1,90 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Task Board — Fullstack Monorepo
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Aplicación de gestión de tareas construida como proyecto de aprendizaje para explorar el stack NestJS + Angular + Laravel en un monorepo.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+**Demo en vivo:** https://crud-tareas-fullstack-monorepo-con.vercel.app
 
-## Description
+## Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Backend principal:** NestJS 11 + TypeORM + PostgreSQL
+- **Frontend:** Angular 21 + RxJS + Tailwind (configurado)
+- **Backend alternativo:** Laravel 13 + Eloquent + MySQL (implementación paralela para comparar arquitecturas)
+- **Auth:** JWT con `@nestjs/passport` + bcrypt
+- **Documentación API:** Swagger (disponible en `/api`)
+- **Deploy:** Render (API + DB) + Vercel (frontend)
 
-## Project setup
+## Estructura del monorepo
 
-```bash
-$ npm install
+```
+task-board/
+├── apps/
+│   ├── api/           Backend NestJS (producción)
+│   ├── web/           Frontend Angular
+│   └── laravel-api/   Backend Laravel (comparación)
+└── package.json       npm workspaces
 ```
 
-## Compile and run the project
+## Funcionalidades
+
+- Registro y login de usuarios con JWT
+- CRUD completo de tareas protegido por autenticación
+- Relación User ↔ Task (cada tarea pertenece a su creador)
+- Filtrado de tareas por estado (OPEN / IN_PROGRESS / DONE)
+- Cambio de estado en tiempo real desde la UI
+- Validación de DTOs con `class-validator`
+- Hash de contraseñas con bcrypt + exclusión del password en las respuestas
+
+## Comparativa NestJS vs Laravel
+
+El mismo CRUD implementado en ambos frameworks para entender las diferencias de filosofía:
+
+| Aspecto | NestJS | Laravel |
+|---|---|---|
+| Separación de capas | Explícita (Module + Controller + Service + DTOs + Entity) | Compacta (Controller + Model) |
+| ORM | TypeORM con `@InjectRepository` | Eloquent estático |
+| Validación | DTOs con `class-validator` | `$request->validate()` inline |
+| Rutas CRUD | 5 métodos con decoradores HTTP | `Route::apiResource` en 1 línea |
+| Binding de parámetros | Manual vía `findOne(id)` | Route Model Binding automático |
+
+## Cómo ejecutarlo localmente
+
+Requisitos: Node.js 20+, PHP 8.3+, Composer, MySQL, PostgreSQL
 
 ```bash
-# development
-$ npm run start
+# Instalar dependencias del monorepo
+npm install
 
-# watch mode
-$ npm run start:dev
+# Backend NestJS
+cd apps/api
+npm run start:dev   # http://localhost:3000
 
-# production mode
-$ npm run start:prod
+# Frontend Angular
+cd apps/web
+npm start           # http://localhost:4200
+
+# Backend Laravel (opcional)
+cd apps/laravel-api
+php artisan serve   # http://localhost:8000
 ```
 
-## Run tests
+## Variables de entorno
 
-```bash
-# unit tests
-$ npm run test
+La API espera estas variables (ver `apps/api/src/app.module.ts`):
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE
+JWT_SECRET
+FRONTEND_URL
 ```
 
-## Deployment
+## Endpoints principales (NestJS API)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Método | Ruta | Auth | Descripción |
+|---|---|---|---|
+| `POST` | `/auth/register` | No | Crear usuario |
+| `POST` | `/auth/login` | No | Login → devuelve JWT |
+| `GET` | `/tasks` | JWT | Listar tareas (query `?status=` para filtrar) |
+| `POST` | `/tasks` | JWT | Crear tarea |
+| `GET` | `/tasks/:id` | JWT | Obtener tarea |
+| `PATCH` | `/tasks/:id` | JWT | Actualizar tarea |
+| `DELETE` | `/tasks/:id` | JWT | Eliminar tarea |
